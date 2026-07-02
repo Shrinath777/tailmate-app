@@ -7,6 +7,8 @@ const projects = [
     description:
       'Real-time IoT environmental monitoring for heritage sites. Used ESP32, temperature/humidity/gas sensors, Node.js dashboard, and SMS alerts to protect monuments.',
     tech: ['ESP32', 'Node.js', 'Express', 'Sensors', 'Twilio SMS', 'Web Dashboard'],
+    liveUrl: 'https://heritage-sentinel-ui.vercel.app',
+    repoUrl: 'https://github.com/Shrinath777/heritage-sentinel'
   },
   {
     name: 'TailMate',
@@ -14,6 +16,8 @@ const projects = [
     description:
       'A pet matchmaking app where dog owners find compatible playmates. Built with React Native and Supabase for real-time chat and profile matching.',
     tech: ['React Native', 'Supabase', 'Node.js', 'Expo', 'Real-time Chat'],
+    liveUrl: 'https://github.com/Shrinath777/tailmate-app',
+    repoUrl: 'https://github.com/Shrinath777/tailmate-app'
   },
   {
     name: 'Farmer Services',
@@ -21,6 +25,8 @@ const projects = [
     description:
       'A rural workflow platform connecting farmers to tools, market prices, and local services. Built with Node.js and Express.',
     tech: ['Node.js', 'Express', 'Firebase', 'HTML/CSS', 'REST APIs'],
+    liveUrl: 'https://github.com/Shrinath777/farmer-services',
+    repoUrl: 'https://github.com/Shrinath777/farmer-services'
   },
   {
     name: 'RFID Dashboard',
@@ -28,6 +34,8 @@ const projects = [
     description:
       'An access control system using RFID cards and ESP32. Tracks entries on a live web dashboard with authentication.',
     tech: ['ESP32', 'RFID RC522', 'Node.js', 'Firebase', 'Web Frontend'],
+    liveUrl: 'https://rfid-dashboard-ui.vercel.app',
+    repoUrl: 'https://github.com/Shrinath777/RFID-dashboard'
   },
   {
     name: 'Dual Axis Solar Tracker',
@@ -35,6 +43,8 @@ const projects = [
     description:
       'Hardware project that aligns solar panels to sunlight using LDR sensors and servo motors for maximum energy capture.',
     tech: ['Arduino', 'LDR Sensors', 'Servo Motors', 'Embedded C', 'PCB Design'],
+    liveUrl: 'https://github.com/Shrinath777/solar-tracker',
+    repoUrl: 'https://github.com/Shrinath777/solar-tracker'
   },
   {
     name: 'CuraBot',
@@ -42,6 +52,8 @@ const projects = [
     description:
       'An AI-powered differential diagnosis chatbot for TCS hackathon. Analyzes symptoms and suggests possible conditions with confidence scores.',
     tech: ['Python', 'FastAPI', 'Vite', 'React', 'AI/ML', 'Supabase'],
+    liveUrl: 'https://curabot-ui.vercel.app',
+    repoUrl: 'https://github.com/Shrinath777/Curabot'
   },
 ];
 
@@ -68,22 +80,6 @@ function ProjectCard({ project, index }) {
     card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
   }, []);
 
-  const handleLaunch = async (slug) => {
-    try {
-      const res = await fetch(`/api/launch/${slug}`, {
-        method: 'POST',
-      });
-      const data = await res.json();
-      if (data.success) {
-        alert(`Launching ${project.name} locally...`);
-      } else {
-        alert(`Could not launch: ${data.error || 'Unknown error'}`);
-      }
-    } catch {
-      alert('Server not reachable. Make sure the backend is running on port 3001.');
-    }
-  };
-
   return (
     <div
       ref={cardRef}
@@ -102,15 +98,17 @@ function ProjectCard({ project, index }) {
           ))}
         </div>
         <div className="project-actions">
-          <a href={`/projects/${project.slug}`} className="btn btn-small btn-primary">
-            View Details
+          <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="btn btn-small btn-primary">
+            Source Code
           </a>
-          <button
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn btn-small btn-outline"
-            onClick={() => handleLaunch(project.slug)}
           >
-            Launch Locally
-          </button>
+            View Live
+          </a>
         </div>
       </div>
     </div>
