@@ -1,4 +1,5 @@
 import React, { useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 
 const projects = [
   {
@@ -8,7 +9,6 @@ const projects = [
       'Real-time IoT environmental monitoring for heritage sites. Used ESP32, temperature/humidity/gas sensors, Node.js dashboard, and SMS alerts to protect monuments.',
     tech: ['ESP32', 'Node.js', 'Express', 'Sensors', 'Twilio SMS', 'Web Dashboard'],
     liveUrl: 'https://heritage-sentinel-ui.vercel.app',
-    repoUrl: 'https://github.com/Shrinath777/heritage-sentinel'
   },
   {
     name: 'TailMate',
@@ -17,7 +17,6 @@ const projects = [
       'A pet matchmaking app where dog owners find compatible playmates. Built with React Native and Supabase for real-time chat and profile matching.',
     tech: ['React Native', 'Supabase', 'Node.js', 'Expo', 'Real-time Chat'],
     liveUrl: 'https://github.com/Shrinath777/tailmate-app',
-    repoUrl: 'https://github.com/Shrinath777/tailmate-app'
   },
   {
     name: 'Farmer Services',
@@ -26,7 +25,6 @@ const projects = [
       'A rural workflow platform connecting farmers to tools, market prices, and local services. Built with Node.js and Express.',
     tech: ['Node.js', 'Express', 'Firebase', 'HTML/CSS', 'REST APIs'],
     liveUrl: 'https://github.com/Shrinath777/farmer-services',
-    repoUrl: 'https://github.com/Shrinath777/farmer-services'
   },
   {
     name: 'RFID Dashboard',
@@ -35,7 +33,6 @@ const projects = [
       'An access control system using RFID cards and ESP32. Tracks entries on a live web dashboard with authentication.',
     tech: ['ESP32', 'RFID RC522', 'Node.js', 'Firebase', 'Web Frontend'],
     liveUrl: 'https://rfid-dashboard-ui.vercel.app',
-    repoUrl: 'https://github.com/Shrinath777/RFID-dashboard'
   },
   {
     name: 'Dual Axis Solar Tracker',
@@ -44,7 +41,6 @@ const projects = [
       'Hardware project that aligns solar panels to sunlight using LDR sensors and servo motors for maximum energy capture.',
     tech: ['Arduino', 'LDR Sensors', 'Servo Motors', 'Embedded C', 'PCB Design'],
     liveUrl: 'https://github.com/Shrinath777/solar-tracker',
-    repoUrl: 'https://github.com/Shrinath777/solar-tracker'
   },
   {
     name: 'CuraBot',
@@ -53,7 +49,6 @@ const projects = [
       'An AI-powered differential diagnosis chatbot for TCS hackathon. Analyzes symptoms and suggests possible conditions with confidence scores.',
     tech: ['Python', 'FastAPI', 'Vite', 'React', 'AI/ML', 'Supabase'],
     liveUrl: 'https://curabot-ui.vercel.app',
-    repoUrl: 'https://github.com/Shrinath777/Curabot'
   },
 ];
 
@@ -98,9 +93,9 @@ function ProjectCard({ project, index }) {
           ))}
         </div>
         <div className="project-actions">
-          <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="btn btn-small btn-primary">
-            Source Code
-          </a>
+          <Link to={`/project/${project.slug}`} className="btn btn-small btn-primary">
+            Know More
+          </Link>
           <a
             href={project.liveUrl}
             target="_blank"

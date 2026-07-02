@@ -21,17 +21,13 @@ const experiences = [
   },
 ];
 
-const achievements = [
-  'SIH 2025 Finalist (Top teams nationwide)',
-  'Google Buildathon participant',
-  'NPTEL IoT Certificate (83%)',
-  'Full Stack Web Dev — Udemy (Angela Yu)',
-];
-
 function Experience() {
   return (
     <section id="experience" className="section experience-section">
       <h2 className="section-title animate-on-scroll">Experience</h2>
+      <p className="section-subtitle animate-on-scroll">
+        Professional experience building real products.
+      </p>
 
       <div className="timeline">
         {experiences.map((exp, i) => (
@@ -52,18 +48,6 @@ function Experience() {
             </div>
           </div>
         ))}
-      </div>
-
-      <div className="achievements-section animate-on-scroll stagger-3">
-        <h3 className="achievements-title">Achievements</h3>
-        <ul className="achievements-list">
-          {achievements.map((ach, i) => (
-            <li key={i} className="achievement-item">
-              <span className="achievement-icon">✦</span>
-              {ach}
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );

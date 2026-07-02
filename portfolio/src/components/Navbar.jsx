@@ -11,11 +11,27 @@ const navLinks = [
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 50);
+
+      // Active section detection
+      const sections = navLinks.map((l) => l.href.replace('#', ''));
+      let current = '';
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 150) {
+            current = id;
+          }
+        }
+      }
+      setActiveSection(current);
     };
+
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -41,6 +57,7 @@ function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
+                className={activeSection === link.href.replace('#', '') ? 'active' : ''}
                 onClick={(e) => handleLinkClick(e, link.href)}
               >
                 {link.label}

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -8,18 +9,33 @@ import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import ProjectDetail from './components/ProjectDetail';
+
+function HomePage() {
+  return (
+    <>
+      <Hero />
+      <About />
+      <Projects />
+      <Skills />
+      <Experience />
+      <Contact />
+      <Footer />
+    </>
+  );
+}
 
 function App() {
   const canvasRef = useRef(null);
-  const navbarRef = useRef(null);
+  const cursorGlowRef = useRef(null);
   const ripples = useRef([]);
   const animationFrameId = useRef(null);
 
   useEffect(() => {
     // --- IntersectionObserver for scroll-triggered reveals ---
     const observerOptions = {
-      threshold: 0.15,
-      rootMargin: '0px 0px -40px 0px',
+      threshold: 0.12,
+      rootMargin: '0px 0px -60px 0px',
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -58,6 +74,16 @@ function App() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
 
+    // --- Magnetic cursor glow ---
+    const handleMouseMove = (e) => {
+      const glow = cursorGlowRef.current;
+      if (glow) {
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+      }
+    };
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+
     // --- Canvas water ripple on click ---
     const canvas = canvasRef.current;
     if (canvas) {
@@ -81,13 +107,15 @@ function App() {
           e.clientY >= rect.top &&
           e.clientY <= rect.bottom
         ) {
-          ripples.current.push({
-            x: e.clientX,
-            y: e.clientY,
-            radius: 0,
-            maxRadius: 300,
-            opacity: 0.4,
-          });
+          for (let i = 0; i < 3; i++) {
+            ripples.current.push({
+              x: e.clientX,
+              y: e.clientY,
+              radius: i * 15,
+              maxRadius: 300,
+              opacity: 0.35 - i * 0.08,
+            });
+          }
         }
       };
       window.addEventListener('click', handleClick);
@@ -101,12 +129,12 @@ function App() {
           ctx.beginPath();
           ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
           ctx.strokeStyle = `rgba(139, 92, 246, ${r.opacity})`;
-          ctx.lineWidth = 2;
+          ctx.lineWidth = 1.5;
           ctx.stroke();
           ctx.closePath();
 
-          r.radius += 3;
-          r.opacity *= 0.97;
+          r.radius += 2.5;
+          r.opacity *= 0.975;
         });
 
         animationFrameId.current = requestAnimationFrame(animate);
@@ -118,6 +146,7 @@ function App() {
         window.removeEventListener('scroll', handleScroll);
         window.removeEventListener('resize', handleResize);
         window.removeEventListener('click', handleClick);
+        window.removeEventListener('mousemove', handleMouseMove);
         cancelAnimationFrame(animationFrameId.current);
         observer.disconnect();
       };
@@ -125,29 +154,33 @@ function App() {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
       observer.disconnect();
     };
   }, []);
 
   return (
-    <div className="app">
-      {/* Decorative background blobs */}
-      <div className="blob blob-1"></div>
-      <div className="blob blob-2"></div>
-      <div className="blob blob-3"></div>
+    <Router>
+      <div className="app">
+        {/* Decorative background blobs */}
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <div className="blob blob-3"></div>
 
-      {/* Canvas for ripple effect */}
-      <canvas ref={canvasRef} className="ripple-canvas"></canvas>
+        {/* Cursor glow */}
+        <div ref={cursorGlowRef} className="cursor-glow"></div>
 
-      <Navbar />
-      <Hero />
-      <About />
-      <Projects />
-      <Skills />
-      <Experience />
-      <Contact />
-      <Footer />
-    </div>
+        {/* Canvas for ripple effect */}
+        <canvas ref={canvasRef} className="ripple-canvas"></canvas>
+
+        <Navbar />
+
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/project/:slug" element={<ProjectDetail />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
