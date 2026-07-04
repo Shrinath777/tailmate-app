@@ -15,10 +15,10 @@ function About() {
         <div className="about-text">
           <p>
             I'm a final-year Electronics and Communication Engineering student
-            at RMK College of Engineering, Chennai. I spend most of my time
-            building things — whether that's wiring up ESP32 sensors for
-            real-time monitoring or writing Node.js backends that tie everything
-            together.
+            at RMK College of Engineering, Chennai. I enjoy learning by building 
+            things — whether that's experimenting with ESP32 sensors for basic 
+            monitoring or exploring how foundational Node.js backends can tie 
+            everything together.
           </p>
           <p>
             I got into IoT during my internship at Eazythings, where I was
