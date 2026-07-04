@@ -10,6 +10,7 @@ import Experience from './components/Experience';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ProjectDetail from './components/ProjectDetail';
+import Background from './components/Background';
 
 function HomePage() {
   return (
@@ -50,12 +51,12 @@ function App() {
     const scrollElements = document.querySelectorAll('.animate-on-scroll');
     scrollElements.forEach((el) => observer.observe(el));
 
-    // --- Parallax effect on blobs ---
+    // --- Parallax effect on water blobs (optional but cool) ---
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const blob1 = document.querySelector('.blob-1');
-      const blob2 = document.querySelector('.blob-2');
-      const blob3 = document.querySelector('.blob-3');
+      const blob1 = document.querySelector('.water-blob-1');
+      const blob2 = document.querySelector('.water-blob-2');
+      const blob3 = document.querySelector('.water-blob-3');
 
       if (blob1) blob1.style.transform = `translate(${scrollY * 0.03}px, ${scrollY * 0.06}px)`;
       if (blob2) blob2.style.transform = `translate(${scrollY * -0.04}px, ${scrollY * 0.08}px)`;
@@ -162,10 +163,7 @@ function App() {
   return (
     <Router>
       <div className="app">
-        {/* Decorative background blobs */}
-        <div className="blob blob-1"></div>
-        <div className="blob blob-2"></div>
-        <div className="blob blob-3"></div>
+        <Background />
 
         {/* Cursor glow */}
         <div ref={cursorGlowRef} className="cursor-glow"></div>
