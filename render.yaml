@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: tailmate-backend
+    env: node
+    rootDir: tailmate-backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "10000"
+      - key: MONGO_URI
+        value: mongodb+srv://shrinathsureshbabu:Tonystark_7777@dogdatingapp.5rbxvhr.mongodb.net/tailmate?retryWrites=true&w=majority
+      - key: JWT_SECRET
+        value: 0a099007230ba9e21018bf209c98eda7d750b3b926a0a594aaf04971bd92ca3a0146dd5048375b26ac5f4d2fcc7486a9a85b577d9e66f57636606c8e16b99aef
