@@ -1042,6 +1042,13 @@ img {
 .detail-container {
   max-width: 800px;
   margin: 0 auto;
+  background: var(--glass);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow-card);
 }
 
 .detail-back {
@@ -1260,6 +1267,10 @@ img {
 
   .detail-title {
     font-size: 1.8rem;
+  }
+
+  .detail-container {
+    padding: 24px;
   }
 
   .cursor-glow {

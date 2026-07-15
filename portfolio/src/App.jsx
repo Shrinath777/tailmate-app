@@ -13,6 +13,27 @@ import ProjectDetail from './components/ProjectDetail';
 import Background from './components/Background';
 
 function HomePage() {
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.12,
+      rootMargin: '0px 0px -60px 0px',
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const scrollElements = document.querySelectorAll('.animate-on-scroll');
+    scrollElements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <Hero />
@@ -33,23 +54,7 @@ function App() {
   const animationFrameId = useRef(null);
 
   useEffect(() => {
-    // --- IntersectionObserver for scroll-triggered reveals ---
-    const observerOptions = {
-      threshold: 0.12,
-      rootMargin: '0px 0px -60px 0px',
-    };
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    const scrollElements = document.querySelectorAll('.animate-on-scroll');
-    scrollElements.forEach((el) => observer.observe(el));
 
     // --- Parallax effect on water blobs (optional but cool) ---
     const handleScroll = () => {
@@ -149,14 +154,14 @@ function App() {
         window.removeEventListener('click', handleClick);
         window.removeEventListener('mousemove', handleMouseMove);
         cancelAnimationFrame(animationFrameId.current);
-        observer.disconnect();
+
       };
     }
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
-      observer.disconnect();
+
     };
   }, []);
 
