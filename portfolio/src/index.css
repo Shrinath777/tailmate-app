@@ -1042,12 +1042,16 @@ img {
 .detail-container {
   max-width: 800px;
   margin: 0 auto;
-  background: var(--glass);
-  backdrop-filter: blur(20px) saturate(1.4);
-  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+}
+
+.detail-card {
+  padding: var(--space-lg) var(--space-xl);
+  margin-bottom: var(--space-lg);
+  background: var(--glass-strong);
+  backdrop-filter: blur(24px) saturate(1.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
-  padding: 40px;
   box-shadow: var(--shadow-card);
 }
 
@@ -1058,7 +1062,7 @@ img {
   font-size: 0.95rem;
   font-weight: 500;
   color: var(--violet);
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
   cursor: pointer;
   transition: var(--transition-base);
   text-decoration: none;
@@ -1070,7 +1074,7 @@ img {
 }
 
 .detail-header {
-  margin-bottom: var(--space-xl);
+  margin-bottom: 0;
 }
 
 .detail-title {
@@ -1269,8 +1273,8 @@ img {
     font-size: 1.8rem;
   }
 
-  .detail-container {
-    padding: 24px;
+  .detail-card {
+    padding: 20px;
   }
 
   .cursor-glow {

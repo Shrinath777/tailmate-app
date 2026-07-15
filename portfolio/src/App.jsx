@@ -14,24 +14,43 @@ import Background from './components/Background';
 
 function HomePage() {
   useEffect(() => {
-    const observerOptions = {
-      threshold: 0.12,
-      rootMargin: '0px 0px -60px 0px',
-    };
+    // Small delay to let the DOM render before observing
+    const timer = setTimeout(() => {
+      const scrollElements = document.querySelectorAll('.animate-on-scroll');
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+      // Immediately reveal elements already in the viewport
+      scrollElements.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add('visible');
         }
       });
-    }, observerOptions);
 
-    const scrollElements = document.querySelectorAll('.animate-on-scroll');
-    scrollElements.forEach((el) => observer.observe(el));
+      // Observe the remaining hidden elements for scroll reveal
+      const observerOptions = {
+        threshold: 0.08,
+        rootMargin: '0px 0px -40px 0px',
+      };
 
-    return () => observer.disconnect();
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      scrollElements.forEach((el) => {
+        if (!el.classList.contains('visible')) {
+          observer.observe(el);
+        }
+      });
+
+      return () => observer.disconnect();
+    }, 50);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (

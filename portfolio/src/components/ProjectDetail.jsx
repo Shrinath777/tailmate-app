@@ -119,8 +119,10 @@ function ProjectDetail() {
       <div className="detail-page">
         <div className="detail-container">
           <Link to="/" className="detail-back">← Back to Portfolio</Link>
-          <h1 className="detail-title">Project not found</h1>
-          <p className="detail-body">The project you are looking for does not exist.</p>
+          <div className="detail-card glass-card">
+            <h1 className="detail-title">Project not found</h1>
+            <p className="detail-body">The project you are looking for does not exist.</p>
+          </div>
         </div>
       </div>
     );
@@ -131,12 +133,14 @@ function ProjectDetail() {
       <div className="detail-container">
         <Link to="/" className="detail-back">← Back to Portfolio</Link>
 
-        <div className="detail-header">
-          <h1 className="detail-title">{project.name}</h1>
-          <p className="detail-tagline">{project.tagline}</p>
+        <div className="detail-card glass-card">
+          <div className="detail-header">
+            <h1 className="detail-title">{project.name}</h1>
+            <p className="detail-tagline">{project.tagline}</p>
+          </div>
         </div>
 
-        <div className="detail-section">
+        <div className="detail-card glass-card">
           <h2 className="detail-section-title">
             <span className="section-icon">🎯</span> Purpose
           </h2>
@@ -145,7 +149,7 @@ function ProjectDetail() {
           </div>
         </div>
 
-        <div className="detail-section">
+        <div className="detail-card glass-card">
           <h2 className="detail-section-title">
             <span className="section-icon">⚡</span> Key Features
           </h2>
@@ -156,7 +160,7 @@ function ProjectDetail() {
           </ul>
         </div>
 
-        <div className="detail-section">
+        <div className="detail-card glass-card">
           <h2 className="detail-section-title">
             <span className="section-icon">🛠</span> Tech Stack
           </h2>
@@ -191,3 +195,4 @@ function ProjectDetail() {
 }
 
 export default ProjectDetail;
+
